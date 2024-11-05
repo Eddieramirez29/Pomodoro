@@ -1,0 +1,95 @@
+
+
+*
+{
+    margin: 0;
+}
+
+
+.headerContainer
+{
+    border: 1px solid black;
+    width: 425px;
+    height: 50px;
+    background-color: #2b2d42;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerContainer p
+{
+    color: rgb(246, 236, 219);
+}
+
+.navigationContinaer
+{
+    border: 1px solid black;
+    width: 425px;
+    height: 100px;
+    background-color: #2b2d42;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigationSubContainer
+{
+    background-color: #232544;
+    border: 1px solid black;
+    width: 400px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px; /*62.5% of height*/
+}
+/*Relationship width-height 2.10 for buttons*/
+.navigationSubContainer > *
+{
+    background-color: #f06262;
+    border: none;
+    height: 60px;
+    width: 120px;
+    border-radius: 37.5px;
+    margin: 2px;
+    color: #2b2d42;
+    font-weight: 600;
+}
+
+.mainContainer
+{
+    background-color: #2b2d42;
+    border: 1px solid black;
+    width: 425px;
+    height: 275px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerPomodor
+{
+    background-color: aliceblue;
+    border: 1px solid black;
+    width: 225px;
+    height: 225px;
+    border-radius: 50%;
+}
+
+.settingsContainer
+{
+    background-color: #2b2d42;
+    border: 1px solid black;
+    width: 425px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#settingsButton
+{
+    background-color: #2b2d42;
+    border: none;
+}
