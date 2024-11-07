@@ -104,8 +104,8 @@ body
 #circleBar
 {
     background: conic-gradient(
-            #e76868 0deg 250deg,
-            #232544 250deg 360deg
+            #e76868 0deg 0deg,
+            #232544 0deg 360deg
             );
     width: 185px;
     height: 185px;
