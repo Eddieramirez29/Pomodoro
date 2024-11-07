@@ -45,7 +45,7 @@ body
     border-radius: 50px; /*62.5% of height*/
 }
 /*Relationship width-height 2.10 for buttons*/
-.navigationSubContainer > *
+#pomodoroButton
 {
     background-color: #f06262;
     border: none;
@@ -54,6 +54,18 @@ body
     border-radius: 37.5px;
     margin: 2px;
     color: #2b2d42;
+    font-weight: 600;
+}
+
+#shortBreakButton, #longBreakButton
+{
+    background-color: #232544;
+    border: none;
+    height: 60px;
+    width: 120px;
+    border-radius: 37.5px;
+    margin: 2px;
+    color: #7b80b9;
     font-weight: 600;
 }
 
