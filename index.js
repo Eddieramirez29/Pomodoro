@@ -9,32 +9,33 @@ let intervalId = null; // Inicializamos intervalId en null
 let startAngle1 = 0, endAngle1 = 360;
 let startAngle2 = 0, endAngle2 = 360;
 let stepTime = 0.24;
-let stepTimeDefine = 0;
-let time;
+let time = 1500;
 let contador = 0;
-
 let buttonStartState = false;
 let textButtonStart;
 
+//Variables for extracting characters from timer
+let minutes;
+let seconds = 60;
+let extract = true;
+let timeString;
+
 buttonStart.addEventListener("click", function()
 {
-    setStepTime();
 
     if(buttonStartState === false)
     {
         buttonStartState = true;
         intervalId = setInterval(() => {
-            circleBar();
+            circleBarStatus();
             timerPace();
-        }, 1000);
-        console.log("Activo");
+        }, 100);
+        // console.log("Activo");
     }
     else
     {
-        buttonStartState = false;
-        clearInterval(intervalId);
-        intervalId = null;
-        console.log("Inactivo");
+        pauseCounter();
+        // console.log("Inactivo");
     }
 
     buttonStartState ? textButtonStart = "Pause" : textButtonStart = "Start";
@@ -48,6 +49,8 @@ pomodoroButton.addEventListener("click", function()
 {
     timer.textContent = "25:00";
     time = 1500;//Segundos
+    //25 min = 360°, 0.24°/sec
+    stepTime = 0.24;
     //Change background colors and font colors
     pomodoroButton.style.backgroundColor = "#f06262";
     pomodoroButton.style.color = "#2b2d42";//Light font
@@ -56,11 +59,8 @@ pomodoroButton.addEventListener("click", function()
     longBreakButton.style.backgroundColor = "#232544";
     longBreakButton.style.color = "#7b80b9";//Darken font
     clearValues();
-    circleBarStatus();
-    clearInterval(intervalId);
-    intervalId = null;
-    //25 min = 360°, 0.24°/sec
-    stepTimeDefine = 0.24;
+    initialcircleBarStatus();
+    pauseCounter();
 })
 
 shortBreakButton.addEventListener("click", function()
@@ -68,6 +68,8 @@ shortBreakButton.addEventListener("click", function()
 
     timer.textContent= "05:00";
     time = 300;//Segundos
+    //5 min = 360°, 1.2°/sec
+    stepTime = 1.2;
     //Change background colors and font colors
     pomodoroButton.style.backgroundColor = "#232544";
     pomodoroButton.style.color = "#7b80b9";//Light font
@@ -75,12 +77,9 @@ shortBreakButton.addEventListener("click", function()
     shortBreakButton.style.color = "#2b2d42";//Darken font
     longBreakButton.style.backgroundColor = "#232544";
     longBreakButton.style.color = "#7b80b9";//Darken font
-    circleBarStatus();
     clearValues();
-    clearInterval(intervalId);
-    intervalId = null;
-    //5 min = 360°, 1.2°/sec
-    stepTimeDefine = 1.2;
+    initialcircleBarStatus();
+    pauseCounter()
 })
 
 longBreakButton.addEventListener("click", function()
@@ -88,6 +87,8 @@ longBreakButton.addEventListener("click", function()
 
     timer.textContent= "15:00";
     time = 900;//Segundos
+    //15 min = 360°, 0.4°/sec
+    stepTime = 0.4;
     //Change background colors and font colors
     pomodoroButton.style.backgroundColor = "#232544";
     pomodoroButton.style.color = "#7b80b9";//Light font
@@ -95,25 +96,24 @@ longBreakButton.addEventListener("click", function()
     shortBreakButton.style.color = "#7b80b9";//Darken font
     longBreakButton.style.backgroundColor = "#f06262";
     longBreakButton.style.color = "#2b2d42";//Darken font
-    circleBarStatus();
     clearValues();
-    clearInterval(intervalId);
-    intervalId = null;
-    //15 min = 360°, 0.4°/sec
-    stepTimeDefine = 0.4;
+    initialcircleBarStatus();
+    pauseCounter()
 })
 
-function setStepTime()
-{
-    stepTime = stepTimeDefine;
-}
 
 function clearValues()
 {
     startAngle1 = 0, endAngle1 = 360;
     startAngle2 = 0, endAngle2 = 360;
-    stepTime = 0.24;
-    stepTimeDefine = 0;
+    extract = true;
+}
+
+const initialcircleBarStatus = () =>
+{
+    // 0deg 360deg, 0deg 0deg//Starting values of angles
+    console.log("Ángulos:", startAngle1, endAngle1, startAngle2, endAngle2);
+    circleBar.style.background = `conic-gradient(#e76868 ${startAngle1}deg ${endAngle1}deg, #232544 ${startAngle2}deg ${endAngle2}deg)`;
 }
 
 const circleBarStatus = () =>
@@ -125,10 +125,63 @@ const circleBarStatus = () =>
     circleBar.style.background = `conic-gradient(#e76868 ${startAngle1}deg ${endAngle1}deg, #232544 ${startAngle2}deg ${endAngle2}deg)`;
 }
 
+function pauseCounter()
+{
+    buttonStartState = false;
+    clearInterval(intervalId);
+    intervalId = null;
+    buttonStartState ? textButtonStart = "Pause" : textButtonStart = "Start";
+    buttonStart.innerHTML = textButtonStart;
+}
+
 function timerPace()
 {
-    timer = timer - 1;
-    console.log(timer);
+    if(extract === true)
+    {
+        extractTextFromCounter();
+        //First interaction
+        minutes = minutes - 1;
+        seconds = 59;
+        timeString = minutes + ":" + seconds;
+        timer.innerText = timeString;
+    }
+    else
+    {
+        if(seconds > 0)
+        {
+            seconds = seconds - 1;
+            if(seconds >= 0 && seconds <= 9)
+            {
+                timeString = minutes + ":" + "0" + seconds;
+                timer.innerText = timeString;
+            }
+            else
+            {
+                timeString = minutes + ":" + seconds;
+                timer.innerText = timeString;
+            }
+        }
+        if(seconds === 0 && minutes > 0)
+        {
+            minutes = minutes - 1;
+            timeString = minutes + ":" + "00";
+            timer.innerText = timeString;
+            seconds = 60;
+        }
+    }
+
+    if(minutes === 0 && seconds === 0)
+    {
+        pauseCounter();
+    }
+
+    
+}
+
+const extractTextFromCounter = () =>
+{
+    minutes = timer.innerText.slice(0, 2);
+    extract = false;
 }
 
 
