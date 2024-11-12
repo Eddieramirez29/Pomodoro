@@ -158,7 +158,7 @@ body
     border-radius: 50%;
 }
 
-#buttonStart:active, #settingsButton:active
+#buttonStart:active, #settingsButton:active, #buttonSettingsClose:active
 {
     transform: scale(0.85);
 }
@@ -179,19 +179,69 @@ body
     border: none;
 }
 
+
+/*Hide configuration panel*/
 .containerSettings
 {
     width: 425px;
     height: 425px;
-    border: 2px solid wheat;
     position: absolute;
     top: 50px;
     left: 0px;
+    display: none;
+    padding: 10px;
+    background-color: aliceblue;
+    border-radius: 15px;
 }
 
-.containerSettings
+#headerSettings
 {
-    display: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+#settingsWord
+{
+    font-weight: 900;
+}
+
+#buttonSettingsClose
+{
+    border: none;
+    border-radius: 3px;
+}
+
+#buttonSettingsClose:hover
+{
+    background-color: #f06262;
+}
+
+#timeTitle
+{
+    display: flex;
+    justify-content: flex-start;
+    height: 40px;
+}
+
+.containerButtons
+{
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+}
+
+#title1, #title2, #title3
+{
+    color: grey;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.containerButton1 > *, .containerButton2 > *, .containerButton3 > *
+{
+    border: none;
 }
 
 @media (min-width: 768px)
