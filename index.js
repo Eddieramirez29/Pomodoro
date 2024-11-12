@@ -4,6 +4,8 @@ const longBreakButton = document.getElementById("longBreakButton");
 const timer = document.getElementById("timer");
 const circleBar = document.getElementById("circleBar");
 const buttonStart = document.getElementById("buttonStart");
+const settingsButton = document.getElementById("settingsButton");
+const containerSettings = document.querySelector(".containerSettings");
 
 let intervalId = null; // Inicializamos intervalId en null
 let startAngle1 = 0, endAngle1 = 360;
@@ -183,3 +185,10 @@ const extractTextFromCounter = () =>
     minutes = timer.innerText.slice(0, 2);
     extract = false;
 }
+
+/*Section for settings */
+settingsButton.addEventListener("click", function()
+{
+    //Show off settings menu
+    containerSettings.style.display = "block";
+});

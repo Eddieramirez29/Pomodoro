@@ -179,12 +179,32 @@ body
     border: none;
 }
 
+.containerSettings
+{
+    width: 425px;
+    height: 425px;
+    border: 2px solid wheat;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+}
+
+.containerSettings
+{
+    display: none;
+}
+
 @media (min-width: 768px)
 {
     .headerContainer, .navigationContinaer, .mainContainer, .settingsContainer
     {
         width: 768px;
     }
+    .containerSettings
+    {
+        left: 171.5px;
+    }
+
 }
 
 @media (min-width: 1024px)
@@ -192,5 +212,10 @@ body
     .headerContainer, .navigationContinaer, .mainContainer, .settingsContainer
     {
         width: 1024px;
+    }
+
+    .containerSettings
+    {
+        left: 299.5px;
     }
 }
