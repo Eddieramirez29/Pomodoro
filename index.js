@@ -29,7 +29,7 @@ buttonStart.addEventListener("click", function()
         intervalId = setInterval(() => {
             circleBarStatus();
             timerPace();
-        }, 100);
+        }, 1000);
         // console.log("Activo");
     }
     else
@@ -183,14 +183,3 @@ const extractTextFromCounter = () =>
     minutes = timer.innerText.slice(0, 2);
     extract = false;
 }
-
-
-
-
-
-
-
-
-
-
-

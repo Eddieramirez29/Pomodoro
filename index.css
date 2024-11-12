@@ -178,3 +178,19 @@ body
     background-color: #2b2d42;
     border: none;
 }
+
+@media (min-width: 768px)
+{
+    .headerContainer, .navigationContinaer, .mainContainer, .settingsContainer
+    {
+        width: 768px;
+    }
+}
+
+@media (min-width: 1024px)
+{
+    .headerContainer, .navigationContinaer, .mainContainer, .settingsContainer
+    {
+        width: 1024px;
+    }
+}
