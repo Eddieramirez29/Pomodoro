@@ -213,7 +213,20 @@ body
     border-radius: 3px;
 }
 
-#buttonSettingsClose:hover
+.innerContainerButton1 > *, .innerContainerButton2 > *, .innerContainerButton3 > *
+{
+    height: 17.5px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    background-color: rgb(177, 173, 173);
+}
+
+#buttonSettingsClose:hover, .innerContainerButton1 > *:hover, 
+.innerContainerButton2 > *:hover,
+.innerContainerButton3 > *:hover
 {
     background-color: #f06262;
 }
@@ -239,9 +252,27 @@ body
     margin-bottom: 5px;
 }
 
-.containerButton1 > *, .containerButton2 > *, .containerButton3 > *
+#label3, #label2, #label1
+{
+    width: 50px;
+    padding-left:5px;
+    display: flex;
+    align-items: center;
+}
+.innerContainerLabelButtons1, .innerContainerLabelButtons2, .innerContainerLabelButtons3
+{
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(177, 173, 173);
+    border-radius: 5px;
+    height: 35px;
+}
+
+.innerContainerButton1 > *, .innerContainerButton2 > *, .innerContainerButton3 > *
 {
     border: none;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (min-width: 768px)
