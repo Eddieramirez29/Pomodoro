@@ -12,6 +12,10 @@ const font1 = document.getElementById("font1");
 const font2 = document.getElementById("font2");
 const font3 = document.getElementById("font3");
 
+const label1 = document.getElementById("label1");
+const label2 = document.getElementById("label2");
+const label3 = document.getElementById("label3");
+
 let intervalId = null; // Inicializamos intervalId en null
 let startAngle1 = 0, endAngle1 = 360;
 let startAngle2 = 0, endAngle2 = 360;
@@ -25,19 +29,32 @@ let seconds = 60;
 let extract = true;
 let timeString;
 let backgroundColorSelected;
+let selectedButton;
 let colorOption;
 let fontOption;
+let pomodoroTime;
+let shortBreakTime;
+let longBreakTime;
 let init = true;
 
 if(init === true)
 {
     initialStyles();
+    initialTimes ();
+    selectedButton = "pomodoro";
 }
 
 function initialStyles()
 {
     backgroundColorSelected = "#e76868";
     init = false;
+}
+
+function initialTimes ()
+{
+    pomodoroTime = "25:00";
+    shortBreakTime = "05:00";
+    longBreakTime = "15:00";
 }
 
 applyButton.addEventListener("click", function()
@@ -49,7 +66,6 @@ applyButton.addEventListener("click", function()
             color1.style.fontWeight = "900";
             color2.style.fontWeight = "500";
             color3.style.fontWeight = "500";
-            setColors1();
             initialcircleBarStatus();
             break;
         case 2:
@@ -57,7 +73,6 @@ applyButton.addEventListener("click", function()
             color1.style.fontWeight = "500";
             color2.style.fontWeight = "900";
             color3.style.fontWeight = "500";
-            setColors2();
             initialcircleBarStatus();
             break;
         case 3:
@@ -65,7 +80,6 @@ applyButton.addEventListener("click", function()
             color1.style.fontWeight = "500";
             color2.style.fontWeight = "500";
             color3.style.fontWeight = "900";
-            setColors3();
             initialcircleBarStatus();
             break;
     }
@@ -91,9 +105,51 @@ applyButton.addEventListener("click", function()
             font3.style.fontWeight = "900";
             break;
     }
+
+    extractTimeLapses();
     
+    if(selectedButton === "pomodoro")
+    {
+        setColors1();
+        timer.textContent = pomodoroTime;
+    }
+    else if (selectedButton === "shortBreakButton")
+    {
+        setColors2();
+        timer.textContent = shortBreakTime;
+    }
+    else
+    {
+        setColors3();
+        timer.textContent = longBreakTime;
+    }
 
 });
+
+function extractTimeLapses()
+{
+    pomodoroTime = label1.innerText;
+    shortBreakTime = label2.innerText;
+    longBreakTime = label3.innerText;
+    if(Number(pomodoroTime) <= 9)
+    {
+        pomodoroTime = "0" + label1.innerText + ":00";
+    }
+    if(Number(label2.innerText) <= 9 )
+    {
+        shortBreakTime = "0" +  label2.innerText + ":00";
+    }
+    if(Number(label3.innerText) <= 9)
+    {
+        longBreakTime = "0" +   label3.innerText + ":00";
+    }
+    else
+    {
+        pomodoroTime = label1.innerText + ":00";
+        shortBreakTime = label2.innerText + ":00";
+        longBreakTime = label3.innerText + ":00";
+    }
+}
 
 color1.addEventListener("click", function()
 {
@@ -125,6 +181,7 @@ font3.addEventListener("click", function()
     fontOption = 3;
 });
 
+
 buttonStart.addEventListener("click", function()
 {
 
@@ -150,7 +207,7 @@ buttonStart.addEventListener("click", function()
 
 pomodoroButton.addEventListener("click", function()
 {
-    timer.textContent = "25:00";
+    timer.textContent = pomodoroTime;
     time = 1500;//Segundos
     //25 min = 360°, 0.24°/sec
     stepTime = 0.24;
@@ -158,6 +215,7 @@ pomodoroButton.addEventListener("click", function()
     clearValues();
     initialcircleBarStatus();
     pauseCounter();
+    selectedButton = "pomodoro";
 });
 
 const setColors1 = () =>
@@ -174,7 +232,7 @@ const setColors1 = () =>
 shortBreakButton.addEventListener("click", function()
 {
 
-    timer.textContent= "05:00";
+    timer.textContent= shortBreakTime;
     time = 300;//Segundos
     //5 min = 360°, 1.2°/sec
     stepTime = 1.2;
@@ -182,6 +240,7 @@ shortBreakButton.addEventListener("click", function()
     clearValues();
     initialcircleBarStatus();
     pauseCounter()
+    selectedButton = "shortBreakButton";
 })
 
 const setColors2 = () =>
@@ -198,14 +257,15 @@ const setColors2 = () =>
 longBreakButton.addEventListener("click", function()
 {
 
-    timer.textContent= "15:00";
+    timer.textContent = longBreakTime;
     time = 900;//Segundos
     //15 min = 360°, 0.4°/sec
     stepTime = 0.4;
     setColors3();
     clearValues();
     initialcircleBarStatus();
-    pauseCounter()
+    pauseCounter();
+    selectedButtonelectedButton = "longBreakButton";
 })
 
 const setColors3 = () =>
