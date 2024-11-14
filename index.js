@@ -8,22 +8,25 @@ const color1 = document.getElementById("color1");
 const color2 = document.getElementById("color2");
 const color3 = document.getElementById("color3");
 
+const font1 = document.getElementById("font1");
+const font2 = document.getElementById("font2");
+const font3 = document.getElementById("font3");
+
 let intervalId = null; // Inicializamos intervalId en null
 let startAngle1 = 0, endAngle1 = 360;
 let startAngle2 = 0, endAngle2 = 360;
 let stepTime = 0.24;
 let time = 1500;
-let contador = 0;
 let buttonStartState = false;
 let textButtonStart;
 
-//Variables for extracting characters from timer
 let minutes;
 let seconds = 60;
 let extract = true;
 let timeString;
 let backgroundColorSelected;
 let colorOption;
+let fontOption;
 let init = true;
 
 if(init === true)
@@ -43,22 +46,53 @@ applyButton.addEventListener("click", function()
     {
         case 1:
             backgroundColorSelected = "#e76868";
+            color1.style.fontWeight = "900";
+            color2.style.fontWeight = "500";
+            color3.style.fontWeight = "500";
             setColors1();
             initialcircleBarStatus();
             break;
         case 2:
             backgroundColorSelected = "#3be0ef";
+            color1.style.fontWeight = "500";
+            color2.style.fontWeight = "900";
+            color3.style.fontWeight = "500";
             setColors2();
             initialcircleBarStatus();
             break;
         case 3:
             backgroundColorSelected = "#e73bdb";
+            color1.style.fontWeight = "500";
+            color2.style.fontWeight = "500";
+            color3.style.fontWeight = "900";
             setColors3();
             initialcircleBarStatus();
             break;
     }
 
-    console.log(backgroundColorSelected);
+    switch (fontOption)
+    {
+        case 1:
+            timer.style.fontFamily = "'Montserrat', sans-serif";
+            font1.style.fontWeight = "900";
+            font2.style.fontWeight = "500";
+            font3.style.fontWeight = "500";
+            break;
+        case 2:
+            timer.style.fontFamily = "'Courier New', monospace";
+            font1.style.fontWeight = "500";
+            font2.style.fontWeight = "900";
+            font3.style.fontWeight = "500";
+            break;
+        case 3:
+            timer.style.fontFamily = "'Times New Roman', serif";
+            font1.style.fontWeight = "500";
+            font2.style.fontWeight = "500";
+            font3.style.fontWeight = "900";
+            break;
+    }
+    
+
 });
 
 color1.addEventListener("click", function()
@@ -74,6 +108,21 @@ color2.addEventListener("click", function()
 color3.addEventListener("click", function()
 {
     colorOption = 3;
+});
+
+font1.addEventListener("click", function()
+{
+    fontOption = 1;
+});
+
+font2.addEventListener("click", function()
+{
+    fontOption = 2;
+});
+
+font3.addEventListener("click", function()
+{
+    fontOption = 3;
 });
 
 buttonStart.addEventListener("click", function()

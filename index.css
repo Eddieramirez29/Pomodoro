@@ -131,6 +131,7 @@ body
 {
     color: rgb(167, 250, 222);
     font-size:50px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #buttonStart
@@ -183,7 +184,7 @@ body
 /*Hide configuration panel*/
 .containerSettings
 {
-    width: 425px;
+    width: 405px;
     height: 425px;
     position: absolute;
     top: 50px;
@@ -299,6 +300,11 @@ body
     height: 50px;
     width: 50px;
     border-radius: 50%;
+}
+
+#font1:hover, #font2:hover, #font3:hover
+{
+    background-color: gray;
 }
 
 #font1:active, #font2:active, #font3:active, 
