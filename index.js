@@ -4,7 +4,9 @@ const longBreakButton = document.getElementById("longBreakButton");
 const timer = document.getElementById("timer");
 const circleBar = document.getElementById("circleBar");
 const buttonStart = document.getElementById("buttonStart");
-
+const color1 = document.getElementById("color1");
+const color2 = document.getElementById("color2");
+const color3 = document.getElementById("color3");
 
 let intervalId = null; // Inicializamos intervalId en null
 let startAngle1 = 0, endAngle1 = 360;
@@ -20,6 +22,59 @@ let minutes;
 let seconds = 60;
 let extract = true;
 let timeString;
+let backgroundColorSelected;
+let colorOption;
+let init = true;
+
+if(init === true)
+{
+    initialStyles();
+}
+
+function initialStyles()
+{
+    backgroundColorSelected = "#e76868";
+    init = false;
+}
+
+applyButton.addEventListener("click", function()
+{
+    switch(colorOption)
+    {
+        case 1:
+            backgroundColorSelected = "#e76868";
+            setColors1();
+            initialcircleBarStatus();
+            break;
+        case 2:
+            backgroundColorSelected = "#3be0ef";
+            setColors2();
+            initialcircleBarStatus();
+            break;
+        case 3:
+            backgroundColorSelected = "#e73bdb";
+            setColors3();
+            initialcircleBarStatus();
+            break;
+    }
+
+    console.log(backgroundColorSelected);
+});
+
+color1.addEventListener("click", function()
+{
+    colorOption = 1;
+});
+
+color2.addEventListener("click", function()
+{
+    colorOption = 2;
+});
+
+color3.addEventListener("click", function()
+{
+    colorOption = 3;
+});
 
 buttonStart.addEventListener("click", function()
 {
@@ -31,12 +86,10 @@ buttonStart.addEventListener("click", function()
             circleBarStatus();
             timerPace();
         }, 1000);
-        // console.log("Activo");
     }
     else
     {
         pauseCounter();
-        // console.log("Inactivo");
     }
 
     buttonStartState ? textButtonStart = "Pause" : textButtonStart = "Start";
@@ -52,17 +105,22 @@ pomodoroButton.addEventListener("click", function()
     time = 1500;//Segundos
     //25 min = 360°, 0.24°/sec
     stepTime = 0.24;
+    setColors1();
+    clearValues();
+    initialcircleBarStatus();
+    pauseCounter();
+});
+
+const setColors1 = () =>
+{
     //Change background colors and font colors
-    pomodoroButton.style.backgroundColor = "#f06262";
+    pomodoroButton.style.backgroundColor = backgroundColorSelected;
     pomodoroButton.style.color = "#2b2d42";//Light font
     shortBreakButton.style.backgroundColor = "#232544";
     shortBreakButton.style.color = "#7b80b9";//Darken font
     longBreakButton.style.backgroundColor = "#232544";
     longBreakButton.style.color = "#7b80b9";//Darken font
-    clearValues();
-    initialcircleBarStatus();
-    pauseCounter();
-})
+}
 
 shortBreakButton.addEventListener("click", function()
 {
@@ -71,17 +129,22 @@ shortBreakButton.addEventListener("click", function()
     time = 300;//Segundos
     //5 min = 360°, 1.2°/sec
     stepTime = 1.2;
-    //Change background colors and font colors
-    pomodoroButton.style.backgroundColor = "#232544";
-    pomodoroButton.style.color = "#7b80b9";//Light font
-    shortBreakButton.style.backgroundColor = "#f06262";
-    shortBreakButton.style.color = "#2b2d42";//Darken font
-    longBreakButton.style.backgroundColor = "#232544";
-    longBreakButton.style.color = "#7b80b9";//Darken font
+    setColors2();
     clearValues();
     initialcircleBarStatus();
     pauseCounter()
 })
+
+const setColors2 = () =>
+{
+    //Change background colors and font colors
+    pomodoroButton.style.backgroundColor = "#232544";
+    pomodoroButton.style.color = "#7b80b9";//Light font
+    shortBreakButton.style.backgroundColor = backgroundColorSelected;
+    shortBreakButton.style.color = "#2b2d42";//Darken font
+    longBreakButton.style.backgroundColor = "#232544";
+    longBreakButton.style.color = "#7b80b9";//Darken font
+}
 
 longBreakButton.addEventListener("click", function()
 {
@@ -90,17 +153,22 @@ longBreakButton.addEventListener("click", function()
     time = 900;//Segundos
     //15 min = 360°, 0.4°/sec
     stepTime = 0.4;
+    setColors3();
+    clearValues();
+    initialcircleBarStatus();
+    pauseCounter()
+})
+
+const setColors3 = () =>
+{
     //Change background colors and font colors
     pomodoroButton.style.backgroundColor = "#232544";
     pomodoroButton.style.color = "#7b80b9";//Light font
     shortBreakButton.style.backgroundColor = "#232544";
     shortBreakButton.style.color = "#7b80b9";//Darken font
-    longBreakButton.style.backgroundColor = "#f06262";
+    longBreakButton.style.backgroundColor = backgroundColorSelected;
     longBreakButton.style.color = "#2b2d42";//Darken font
-    clearValues();
-    initialcircleBarStatus();
-    pauseCounter()
-})
+}
 
 
 function clearValues()
@@ -114,7 +182,7 @@ const initialcircleBarStatus = () =>
 {
     // 0deg 360deg, 0deg 0deg//Starting values of angles
     console.log("Ángulos:", startAngle1, endAngle1, startAngle2, endAngle2);
-    circleBar.style.background = `conic-gradient(#e76868 ${startAngle1}deg ${endAngle1}deg, #232544 ${startAngle2}deg ${endAngle2}deg)`;
+    circleBar.style.background = `conic-gradient(${backgroundColorSelected} ${startAngle1}deg ${endAngle1}deg, #232544 ${startAngle2}deg ${endAngle2}deg)`;
 }
 
 const circleBarStatus = () =>
@@ -123,7 +191,7 @@ const circleBarStatus = () =>
     endAngle1 = endAngle1 - stepTime;
     startAngle2 = endAngle1;
     console.log("Ángulos:", startAngle1, endAngle1, startAngle2, endAngle2);
-    circleBar.style.background = `conic-gradient(#e76868 ${startAngle1}deg ${endAngle1}deg, #232544 ${startAngle2}deg ${endAngle2}deg)`;
+    circleBar.style.background = `conic-gradient(${backgroundColorSelected} ${startAngle1}deg ${endAngle1}deg, #232544 ${startAngle2}deg ${endAngle2}deg)`;
 }
 
 function pauseCounter()
