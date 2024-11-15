@@ -16,6 +16,9 @@ const label1 = document.getElementById("label1");
 const label2 = document.getElementById("label2");
 const label3 = document.getElementById("label3");
 
+const buttons = document.querySelectorAll("#buttonUp1, #buttonDown1, #buttonUp2, #buttonDown2, #buttonUp3, #buttonDown3");
+
+
 let intervalId = null; // Inicializamos intervalId en null
 let startAngle1 = 0, endAngle1 = 360;
 let startAngle2 = 0, endAngle2 = 360;
@@ -36,6 +39,7 @@ let pomodoroTime;
 let shortBreakTime;
 let longBreakTime;
 let init = true;
+let enableChange = false;
 
 if(init === true)
 {
@@ -56,6 +60,19 @@ function initialTimes ()
     shortBreakTime = "05:00";
     longBreakTime = "15:00";
 }
+
+
+buttons.forEach(button =>
+{
+  button.addEventListener("click", () =>
+    {
+        pauseCounter();
+        clearValues();
+        initialcircleBarStatus();
+        enableChange = true;
+    });
+});
+
 
 applyButton.addEventListener("click", function()
 {
@@ -106,47 +123,66 @@ applyButton.addEventListener("click", function()
             break;
     }
 
-    extractTimeLapses();
     
+    if(enableChange === true)
+    {
+        extractTimeLapses();
+        if(selectedButton === "pomodoro")
+            {
+                timer.textContent = pomodoroTime;
+            }
+            else if (selectedButton === "shortBreakButton")
+            {
+                timer.textContent =  shortBreakTime;
+            }
+            else
+            {
+                timer.textContent = longBreakTime;
+            }
+    }
+
     if(selectedButton === "pomodoro")
-    {
-        setColors1();
-        timer.textContent = pomodoroTime;
-    }
-    else if (selectedButton === "shortBreakButton")
-    {
-        setColors2();
-        timer.textContent = shortBreakTime;
-    }
-    else
-    {
-        setColors3();
-        timer.textContent = longBreakTime;
-    }
+        {
+            setColors1();
+        }
+        else if (selectedButton === "shortBreakButton")
+        {
+            setColors2();
+        }
+        else
+        {
+            setColors3();
+        }
 
 });
 
 function extractTimeLapses()
 {
-    pomodoroTime = label1.innerText;
-    shortBreakTime = label2.innerText;
-    longBreakTime = label3.innerText;
-    if(Number(pomodoroTime) <= 9)
+
+    if (Number(label1.innerText) <= 9)
     {
         pomodoroTime = "0" + label1.innerText + ":00";
-    }
-    if(Number(label2.innerText) <= 9 )
-    {
-        shortBreakTime = "0" +  label2.innerText + ":00";
-    }
-    if(Number(label3.innerText) <= 9)
-    {
-        longBreakTime = "0" +   label3.innerText + ":00";
     }
     else
     {
         pomodoroTime = label1.innerText + ":00";
+    }
+
+    if (Number(label2.innerText) <= 9)
+    {
+        shortBreakTime = "0" + label2.innerText + ":00";
+    }
+    else
+    {
         shortBreakTime = label2.innerText + ":00";
+    }
+
+    if (Number(label3.innerText) <= 9)
+    {
+        longBreakTime = "0" + label3.innerText + ":00";
+    }
+    else
+    {
         longBreakTime = label3.innerText + ":00";
     }
 }
